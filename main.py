@@ -6,8 +6,8 @@ from typing import List
 
 app = FastAPI()
 
-NOTION_TOKEN = os.environ["ntn_X3620961771at2knhAAXOx8kGlOiIQ9GKV0P9x69MT90xm"]
-DATABASE_ID = os.environ["28e0d7d37deb8063813ac7a5b0adf02a"]
+NOTION_TOKEN = os.environ["NOTION_TOKEN"]
+DATABASE_ID = os.environ["NOTION_DATABASE_ID"]
 
 HEADERS = {
     "Authorization": f"Bearer {NOTION_TOKEN}",
