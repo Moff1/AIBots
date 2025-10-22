@@ -25,9 +25,9 @@ def add_phrase(item: Phrase):
     notion_payload = {
         "parent": { "database_id": DATABASE_ID },
         "properties": {
-            "Phrase": { "title": [{ "text": { "content": item.phrase } }] },
-            "Meaning": { "rich_text": [{ "text": { "content": item.meaning } }] },
-            "Region": { "select": { "name": item.region } }
+            "Normal Phrase": { "title": [{ "text": { "content": item.phrase } }] },
+            "Slang Phrase": { "rich_text": [{ "text": { "content": item.meaning } }] },
+            "Accent": { "select": { "name": item.region } }
         }
     }
 
