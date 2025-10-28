@@ -36,9 +36,13 @@ components:
     Phrase:
       type: object
       properties:
-        phrase:
+        Normal Phrase:
           type: string
-        meaning:
+        Slang Phrase:
           type: string
-        region:
-          type: string
+        Accent:
+          type: string  # If your middleware maps this to a select, string is fine here
+      required:
+        - Normal Phrase
+        - Slang Phrase
+        - Accent
