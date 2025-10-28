@@ -53,11 +53,20 @@ def get_phrases():
 
     for page in pages:
         try:
-            phrase = page["properties"]["Spanish Phrase"]["title"][0]["text"]["content"]
-            meaning = page["properties"]["Slang Phrase"]["rich_text"][0]["text"]["content"]
-            region = page["properties"]["Accent"]["select"]["name"]
-            results.append(Phrase(phrase=phrase, meaning=meaning, region=region))
+            title_list = page["properties"]["Normal Phrase"]["title"]
+            meaning_list = page["properties"]["Slang Phrase"]["rich_text"]
+            region_obj = page["properties"]["Accent"]["select"]
+
+            phrase = title_list[0]["text"]["content"] if title_list else ""
+            meaning = meaning_list[0]["text"]["content"] if meaning_list else ""
+            region = region_obj["name"] if region_obj else ""
+
+            # Skip empty entries (optional)
+            if phrase and meaning and region:
+                results.append(Phrase(phrase=phrase, meaning=meaning, region=region))
         except Exception as e:
+            # Log or handle specific error instead of silently skipping
+            print(f"Error parsing page: {e}")
             continue
 
     return results
