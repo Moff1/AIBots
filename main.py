@@ -16,18 +16,18 @@ HEADERS = {
 }
 
 class Phrase(BaseModel):
-    phrase: str
-    meaning: str
-    region: str
+    Normalphrase: str
+    Slangphrase: str
+    Accent: str
 
 @app.post("/add-phrase")
 def add_phrase(item: Phrase):
     notion_payload = {
         "parent": { "database_id": DATABASE_ID },
         "properties": {
-            "Normal Phrase": { "title": [{ "text": { "content": item.phrase } }] },
-            "Slang Phrase": { "rich_text": [{ "text": { "content": item.meaning } }] },
-            "Accent": { "select": { "name": item.region } }
+            "Normal Phrase": { "title": [{ "text": { "content": item.Normalphrase } }] },
+            "Slang Phrase": { "rich_text": [{ "text": { "content": item.Slangphrase } }] },
+            "Accent": { "select": { "name": item.Accent } }
         }
     }
 
@@ -63,7 +63,7 @@ def get_phrases():
 
             # Skip empty entries (optional)
             if phrase and meaning and region:
-                results.append(Phrase(phrase=phrase, meaning=meaning, region=region))
+                results.append(Phrase(Normalphrase=phrase, Slangphrase=meaning, Accent=region))
         except Exception as e:
             # Log or handle specific error instead of silently skipping
             print(f"Error parsing page: {e}")
