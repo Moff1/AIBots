@@ -53,7 +53,7 @@ def get_phrases():
 
     for page in pages:
         try:
-            title_list = page["properties"]["mormalphrase"]["title"]
+            title_list = page["properties"]["normalphrase"]["title"]
             meaning_list = page["properties"]["slangphrase"]["rich_text"]
             region_obj = page["properties"]["accent"]["select"]
 
