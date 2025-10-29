@@ -16,18 +16,18 @@ HEADERS = {
 }
 
 class Phrase(BaseModel):
-    Normalphrase: str
-    Slangphrase: str
-    Accent: str
+    normalphrase: str
+    slangphrase: str
+    accent: str
 
 @app.post("/add-phrase")
 def add_phrase(item: Phrase):
     notion_payload = {
         "parent": { "database_id": DATABASE_ID },
         "properties": {
-            "Normal Phrase": { "title": [{ "text": { "content": item.Normalphrase } }] },
-            "Slang Phrase": { "rich_text": [{ "text": { "content": item.Slangphrase } }] },
-            "Accent": { "select": { "name": item.Accent } }
+            "normalphrase": { "title": [{ "text": { "content": item.normalphrase } }] },
+            "slangphrase": { "rich_text": [{ "text": { "content": item.slangphrase } }] },
+            "accent": { "select": { "name": item.accent} }
         }
     }
 
@@ -53,17 +53,17 @@ def get_phrases():
 
     for page in pages:
         try:
-            title_list = page["properties"]["Normal Phrase"]["title"]
-            meaning_list = page["properties"]["Slang Phrase"]["rich_text"]
-            region_obj = page["properties"]["Accent"]["select"]
+            title_list = page["properties"]["mormalphrase"]["title"]
+            meaning_list = page["properties"]["slangphrase"]["rich_text"]
+            region_obj = page["properties"]["accent"]["select"]
 
-            phrase = title_list[0]["text"]["content"] if title_list else ""
-            meaning = meaning_list[0]["text"]["content"] if meaning_list else ""
-            region = region_obj["name"] if region_obj else ""
+            normalphrase = title_list[0]["text"]["content"] if title_list else ""
+            slangphrase = meaning_list[0]["text"]["content"] if meaning_list else ""
+            accent = region_obj["name"] if region_obj else ""
 
             # Skip empty entries (optional)
-            if phrase and meaning and region:
-                results.append(Phrase(Normalphrase=phrase, Slangphrase=meaning, Accent=region))
+            if normalphrase and slangphrase and accent:
+                results.append(Phrase(normalphrase=normalphrase, slangphrase=slangphrase, accent=accent))
         except Exception as e:
             # Log or handle specific error instead of silently skipping
             print(f"Error parsing page: {e}")
