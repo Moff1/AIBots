@@ -1,2 +1,0 @@
-28e0d7d37deb8063813ac7a5b0adf02a = DatabaseID
-ntn_X3620961771at2knhAAXOx8kGlOiIQ9GKV0P9x69MT90xm = Notion Token
