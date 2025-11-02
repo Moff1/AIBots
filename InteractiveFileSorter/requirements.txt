@@ -1,5 +1,0 @@
-openai
-scikit-learn
-pdfplumber
-python-docx
-tqdm
