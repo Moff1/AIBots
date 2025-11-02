@@ -10,7 +10,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from typing import List
 from tqdm import tqdm
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+
 
 # 1. Read file content
 def extract_text_from_file(file_path: str) -> str:

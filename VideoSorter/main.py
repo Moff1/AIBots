@@ -10,11 +10,11 @@ from moviepy import (
     VideoFileClip
 )
 from pathlib import Path
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 
 # Load API key from .env file
 #load_dotenv()
-#openai.api_key = os.getenv("OPENAI_API_KEY")
+
 
 # --- Configuration ---
 VIDEO_DIR = r"D:\TikTok\data\Favorites\videos"
