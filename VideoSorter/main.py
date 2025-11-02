@@ -1,13 +1,20 @@
 import os
 import shutil
-import openai
-from moviepy.editor import VideoFileClip
+from openai import OpenAI
+from moviepy import (
+    ImageClip, 
+    TextClip, 
+    CompositeVideoClip, 
+    AudioFileClip,
+    concatenate_videoclips,
+    VideoFileClip
+)
 from pathlib import Path
 from dotenv import load_dotenv
 
 # Load API key from .env file
-load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
+#load_dotenv()
+#openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # --- Configuration ---
 VIDEO_DIR = r"D:\TikTok\data\Favorites\videos"
@@ -17,6 +24,9 @@ SORTED_DIR = "sorted/"
 # --- Ensure folders exist ---
 Path(AUDIO_DIR).mkdir(exist_ok=True)
 Path(SORTED_DIR).mkdir(exist_ok=True)
+
+
+client = OpenAI()
 
 def extract_audio(video_path, audio_path):
     clip = VideoFileClip(video_path)
@@ -32,8 +42,11 @@ def extract_audio(video_path, audio_path):
 
 def transcribe_audio(audio_path):
     with open(audio_path, "rb") as audio_file:
-        response = openai.Audio.transcribe("whisper-1", audio_file)
-        return response['text']
+        transcript = client.audio.transcriptions.create(
+            model="whisper-1",
+            file=audio_file
+        )
+        return transcript.text
 
 def classify_transcript(transcript):
     prompt = f"""You are a TikTok video content classifier. Given a transcript of a video, your job is to:
@@ -53,7 +66,7 @@ Transcript:
 
 Respond ONLY with the category name (existing or newly created). No explanations."""
     
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model="gpt-4",
         messages=[{"role": "user", "content": prompt}]
     )
